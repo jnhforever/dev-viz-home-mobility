@@ -1,0 +1,35 @@
+{
+  "printWidth": 1000,
+  "singleQuote": true,
+  "trailingComma": "es5",
+  "tabWidth": 2,
+  "useTabs": false,
+  "css.singleLine": true,
+  "endOfLine": "auto",
+  "overrides": [
+    {
+      "files": "*.css",
+      "options": {
+        "printWidth": 1000
+      }
+    },
+    {
+      "files": "*.json",
+      "options": {
+        "printWidth": 1000
+      }
+    },
+    {
+      "files": "*.js",
+      "options": {
+        "printWidth": 1000
+      }
+    },
+    {
+      "files": "*.vue",
+      "options": {
+        "printWidth": 120
+      }
+    }
+  ]
+}
