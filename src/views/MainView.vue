@@ -149,7 +149,7 @@ export default {
     canvas.height = this.canvasHeight;
     this.ctx = canvas.getContext("2d");
 
-    await this.getDefaults();
+    //  await this.getDefaults();
   },
 
   methods: {
