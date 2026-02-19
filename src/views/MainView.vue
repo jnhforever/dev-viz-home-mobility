@@ -107,6 +107,7 @@ export default {
   },
   data() {
     return {
+      hourList: [],
       totalDistance: null,
       selectedHour: null,
       tooltip: {
@@ -128,11 +129,11 @@ export default {
     };
   },
   computed: {
-    hourList() {
-      return Array.from({ length: 24 }, (_, i) =>
-        `${String(i).padStart(2, "0")}:00-${String(i + 1).padStart(2, "0")}:00`
-      );
-    },
+    /* hourList() {
+       return Array.from({ length: 24 }, (_, i) =>
+         `${String(i).padStart(2, "0")}:00-${String(i + 1).padStart(2, "0")}:00`
+       );
+     },*/
     readyToDraw() {
       return (
         this.mappingList.length &&
@@ -148,7 +149,7 @@ export default {
     canvas.height = this.canvasHeight;
     this.ctx = canvas.getContext("2d");
 
-    // await this.getDefaults();
+    await this.getDefaults();
   },
 
   methods: {
@@ -237,7 +238,8 @@ export default {
         }
 
         this.rawData = rawData;
-
+        this.hourList = this.buildHourList(this.rawData)
+        //  console.log(this.buildHourList(this.rawData))
         alert("엑셀 자동 로드 완료");
 
       } catch (err) {
@@ -245,6 +247,22 @@ export default {
         alert("엑셀 자동 로딩 중 오류 발생");
       }
 
+    },
+    buildHourList(dataList) {
+      const hourSet = new Set();
+
+      dataList.forEach(item => {
+        if (item.MinuteIdx == null) return;
+
+        const hour = Math.floor(item.MinuteIdx / 60);
+        hourSet.add(hour);
+      });
+
+      return Array.from(hourSet)
+        .sort((a, b) => a - b)
+        .map(h =>
+          `${String(h).padStart(2, "0")}:00-${String(h + 1).padStart(2, "0")}:00`
+        );
     },
     loadImage(src) {
       const img = new Image();
